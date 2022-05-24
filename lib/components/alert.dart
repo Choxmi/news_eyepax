@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:news_eyepax/model/response.dart';
+import 'package:news_eyepax/utilities/constants.dart';
 
 class Alert {
-  static const snackBar = SnackBar(
-    content: Text('Yay! A SnackBar!'),
-  );
-
   static void showAlert(BuildContext context, Response response) {
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: primaryColor,
+        content: Text(response.message),
+      ),
+    );
   }
 }

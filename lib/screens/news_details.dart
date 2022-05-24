@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_eyepax/model/article.dart';
 import 'package:news_eyepax/utilities/constants.dart';
+import 'package:dart_date/dart_date.dart';
 
 class NewsDetails extends StatelessWidget {
   const NewsDetails({Key? key}) : super(key: key);
@@ -96,7 +97,7 @@ class NewsDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(DateTime.parse(article.publishedAt ?? DateTime.now().toString())
-                                .toIso8601String(), style: GoogleFonts.nunito().copyWith(fontSize: 14.0),),
+                                .toHumanString(), style: GoogleFonts.nunito().copyWith(fontSize: 14.0),),
                             SizedBox(
                               height:
                                   MediaQuery.of(context).size.height / 5 - 80,

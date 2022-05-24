@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_eyepax/components/list_image.dart';
 import 'package:news_eyepax/model/article.dart';
 
 import '../components/breaking_news_item.dart';

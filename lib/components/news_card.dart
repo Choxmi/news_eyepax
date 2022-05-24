@@ -19,11 +19,11 @@ class NewsCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(5.0)),
         child: Stack(
           children: <Widget>[
-            Image.network(
-              article.urlToImage ?? defaultNewsImage,
-              fit: BoxFit.fitHeight,
-              height: 1000
-            ),
+            FadeInImage.assetNetwork(
+              placeholder: 'assets/loading.gif',
+              image: article.urlToImage ?? defaultNewsImage,
+              fit: BoxFit.fitWidth,
+              height: 1000,),
             Positioned(
               bottom: 0.0,
               left: 0.0,

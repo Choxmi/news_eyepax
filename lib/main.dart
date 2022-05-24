@@ -4,6 +4,7 @@ import 'package:news_eyepax/screens/login.dart';
 import 'package:news_eyepax/screens/news_details.dart';
 import 'package:news_eyepax/screens/news_list.dart';
 import 'package:news_eyepax/screens/registration.dart';
+import 'package:news_eyepax/screens/search.dart';
 
 void main() {
   runApp(const NewsApp());
@@ -25,6 +26,7 @@ class NewsApp extends StatelessWidget {
         NewsDetails.id: (BuildContext context) => const NewsDetails(),
         NewsList.id: (BuildContext context) => const NewsList(),
         Registration.id: (BuildContext context) => const Registration(),
+        Search.id: (BuildContext context) => const Search(),
       },
     );
   }

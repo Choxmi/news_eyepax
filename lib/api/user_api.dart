@@ -58,4 +58,12 @@ class UserAPI {
     return res;
   }
 
+  // Logout user
+  static Future<Response> logoutUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('user');
+    //TODO: Update user logged in field
+    return Response(status: RESPONSE_CODE.success, message: 'User logged out', description: 'User logged in successful');
+  }
+
 }

@@ -1,13 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_eyepax/api/news_api.dart';
 import 'package:news_eyepax/api/user_api.dart';
-import 'package:news_eyepax/components/carousel.dart';
+import 'package:news_eyepax/components/alert.dart';
+import 'package:news_eyepax/components/breaking_news.dart';
 import 'package:news_eyepax/components/lazy_container.dart';
 import 'package:news_eyepax/components/search_bar.dart';
+import 'package:news_eyepax/components/top_news.dart';
 import 'package:news_eyepax/model/article.dart';
+import 'package:news_eyepax/model/response.dart';
 import 'package:news_eyepax/screens/login.dart';
-import 'package:news_eyepax/screens/news_list.dart';
+import 'package:news_eyepax/screens/search.dart';
+import 'package:news_eyepax/utilities/constants.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -31,11 +35,8 @@ class _DashboardState extends State<Dashboard> {
             context, Login.id, ModalRoute.withName(Login.id));
         return;
       }
-      NewsAPI().getHeadlines().then((value){
-        setState(() {
-          loading = false;
-          articles = value;
-        });
+      setState(() {
+        loading = false;
       });
     });
     super.initState();
@@ -44,43 +45,71 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: LazyContainer(
-          isLoading: loading,
+      body: LazyContainer(
+        isLoading: loading,
+        child: SafeArea(
+          bottom: false,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SearchBar(
-                searchController: searchController,
-              ),
-              SizedBox(
-                height: 55.0,
-                child: Row(
-                  children: [
-                    Text(
-                      'Breaking News',
-                      style: GoogleFonts.tinos().copyWith(fontSize: 18.0, fontWeight: FontWeight.bold),
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: (){Navigator.of(context).pushNamed(NewsList.id,arguments: articles);},
-                      child: Flex(
-                        direction: Axis.horizontal,
-                        children: [
-                          Text(
-                            'See All',
-                            style: GoogleFonts.nunito().copyWith(color: Colors.blueAccent),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: SizedBox(
+                    width: double.infinity,
+                    child: Flex(
+                      direction: Axis.horizontal,
+                      children: [
+                        Expanded(
+                          child: SearchBar(
+                            searchController: searchController,
+                            dirty: false,
+                            hint: 'Type to search',
+                            onSearch: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Search(text: searchController.text,),),);
+                            },
                           ),
-                          const Icon(Icons.chevron_right, color: Colors.blueAccent,)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            showCupertinoDialog(context: context, builder: (BuildContext modalContext){
+                              return CupertinoAlertDialog(
+                                title: Text('Logout',style: GoogleFonts.nunito().copyWith(fontSize: 20.0),),
+                                content: Text('Are you sure you want to logout?',style: GoogleFonts.nunito(),),
+                                actions: [
+                                  CupertinoDialogAction(
+                                      child: Text('Logout',style: GoogleFonts.nunito().copyWith(color: primaryColor, fontWeight: FontWeight.w200),),
+                                      onPressed: () async
+                                      {
+                                        Response res = await UserAPI.logoutUser();
+                                        Navigator.of(context).pop();
+                                        Alert.showAlert(context, res);
+                                        Navigator.pushNamedAndRemoveUntil(context, Login.id, ModalRoute.withName(Login.id));
+                                      }
+                                  ),
+                                  CupertinoDialogAction(
+                                      child: Text('Cancel',style: GoogleFonts.nunito().copyWith(color: Colors.blueAccent),),
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      }
+                                  )
+                                ],
+                              );
+                            },
+                            );
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Icon(
+                              CupertinoIcons.person_alt_circle,
+                              color: primaryColor,
+                              size: 30.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
               ),
-              Carousel(
-                articleList: articles,
-              ),
+              const BreakingNews(),
+              const TopNews(),
             ],
           ),
         ),

@@ -9,10 +9,32 @@ class NewsAPI {
   final String baseUrl = 'https://newsapi.org/v2/';
 
   // Get headlines/Breaking news
-  Future<List<Article>> getHeadlines({ String? country }) async {
+  Future<List<Article>> getHeadlines({ String? country, String? q, String? language, String? category }) async {
     List<Article> articles = [];
+    String url = '$baseUrl/top-headlines?apiKey=$_newsApiKey';
+    if(country != null) url+='&country=$country';
+    if(q != null) url+='&q=$q';
+    if(language != null) url+='&language=$language';
+    if(category != null) url+='&category=$category';
     try{
-      dynamic data = jsonDecode(await http.read(Uri.parse('$baseUrl/top-headlines?country=${country??'us'}&apiKey=$_newsApiKey'),));
+      dynamic data = jsonDecode(await http.read(Uri.parse(url),));
+      print(url);
+      articles = data['articles'].map<Article>((item)=>Article.fromJson(item)).toList();
+    } catch(e) {
+      articles = [];
+    }
+    return articles;
+  }
+
+  // Get from everything API
+  Future<List<Article>> getEverything({ String? q, String? sortBy, int? page }) async {
+    List<Article> articles = [];
+    String url = '$baseUrl/top-headlines?apiKey=$_newsApiKey';
+    if(q != null) url+='&q=$q';
+    if(sortBy != null) url+='&sortBy=$sortBy';
+    if(page != null) url+='&page=$page';
+    try{
+      dynamic data = jsonDecode(await http.read(Uri.parse(url),));
       articles = data['articles'].map<Article>((item)=>Article.fromJson(item)).toList();
     } catch(e) {
       articles = [];
