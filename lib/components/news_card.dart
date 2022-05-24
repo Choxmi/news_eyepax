@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news_eyepax/model/article.dart';
 import 'package:news_eyepax/screens/news_details.dart';
 import 'package:news_eyepax/utilities/constants.dart';
@@ -20,8 +21,8 @@ class NewsCard extends StatelessWidget {
           children: <Widget>[
             Image.network(
               article.urlToImage ?? defaultNewsImage,
-              fit: BoxFit.cover,
-              width: 1000.0,
+              fit: BoxFit.fitHeight,
+              height: 1000
             ),
             Positioned(
               bottom: 0.0,
@@ -40,16 +41,42 @@ class NewsCard extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 20.0),
-                child: Text(
-                  article.title ?? '',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flex(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      direction: Axis.vertical,
+                      children: [
+                        Text(
+                          'by ${article.author ?? ''}',
+                          style: GoogleFonts.nunito().copyWith(
+                              fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height:MediaQuery.of(context).size.height/10,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              article.description ?? '',
+                              maxLines: 3, overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.tinos().copyWith(
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(padding: const EdgeInsets.only(top: 30.0), child: Text(
+                      article.description ?? '', maxLines: 2, overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.nunito().copyWith(
+                          fontSize: 12.0, color: Colors.white),
+                    ),),
+                  ],
+                ),
                 ),
               ),
-            ),
           ],
         ),
       ),

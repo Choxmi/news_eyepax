@@ -7,6 +7,7 @@ import 'package:news_eyepax/components/lazy_container.dart';
 import 'package:news_eyepax/components/search_bar.dart';
 import 'package:news_eyepax/model/article.dart';
 import 'package:news_eyepax/screens/login.dart';
+import 'package:news_eyepax/screens/news_list.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -61,18 +62,19 @@ class _DashboardState extends State<Dashboard> {
                       style: GoogleFonts.tinos().copyWith(fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
-                    TextButton(
-                        onPressed: () {},
-                        child: Flex(
-                          direction: Axis.horizontal,
-                          children: [
-                            Text(
-                              'See All',
-                              style: GoogleFonts.nunito(),
-                            ),
-                            const Icon(Icons.chevron_right)
-                          ],
-                        ))
+                    GestureDetector(
+                      onTap: (){Navigator.of(context).pushNamed(NewsList.id);},
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Text(
+                            'See All',
+                            style: GoogleFonts.nunito().copyWith(color: Colors.blueAccent),
+                          ),
+                          const Icon(Icons.chevron_right, color: Colors.blueAccent,)
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

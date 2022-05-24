@@ -11,11 +11,13 @@ class Carousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        aspectRatio: 2.0,
+        height: MediaQuery.of(context).size.height/4,
+        aspectRatio: 3/2,
         enlargeCenterPage: true,
         enableInfiniteScroll: false,
         initialPage: 2,
         autoPlay: true,
+        viewportFraction: 0.85
       ),
       items: articleList.map((article) => NewsCard(article: article,)).toList(),
     );
