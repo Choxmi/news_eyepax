@@ -63,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: (){Navigator.of(context).pushNamed(NewsList.id);},
+                      onTap: (){Navigator.of(context).pushNamed(NewsList.id,arguments: articles);},
                       child: Flex(
                         direction: Axis.horizontal,
                         children: [
