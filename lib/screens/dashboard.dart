@@ -58,7 +58,7 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Text(
                       'Breaking News',
-                      style: GoogleFonts.nunito(),
+                      style: GoogleFonts.tinos().copyWith(fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
                     TextButton(
