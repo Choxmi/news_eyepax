@@ -18,7 +18,14 @@ class NewsApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white
       ),
-      home: Container(),
+      initialRoute: Dashboard.id,
+      routes: {
+        Dashboard.id: (BuildContext context) => const Dashboard(),
+        Login.id: (BuildContext context) => const Login(),
+        NewsDetails.id: (BuildContext context) => const NewsDetails(),
+        NewsList.id: (BuildContext context) => const NewsList(),
+        Registration.id: (BuildContext context) => const Registration(),
+      },
     );
   }
 }
