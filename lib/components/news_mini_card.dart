@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_eyepax/components/list_image.dart';
 import 'package:news_eyepax/model/article.dart';
+import 'package:news_eyepax/screens/news_details.dart';
 import 'package:news_eyepax/utilities/constants.dart';
 
 class NewsMiniCard extends StatelessWidget {
@@ -14,7 +15,9 @@ class NewsMiniCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, NewsDetails.id, arguments: article);
+        },
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(5.0)),
           child: Stack(

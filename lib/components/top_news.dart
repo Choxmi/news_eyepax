@@ -16,8 +16,9 @@ class _TopNewsState extends State<TopNews> {
   @override
   void initState() {
     super.initState();
-    NewsAPI().getEverything(q: 'hot').then((value){
-      setState(() { articles = value;});
+    NewsAPI().getEverything(q: 'apple').then((value){
+      print(value.total);
+      setState(() { articles = value.articles;});
     });
   }
 

@@ -22,3 +22,5 @@ const textDecoration = InputDecoration(
 );
 
 const List<String> categories = ['business','entertainment','general','health','science','sports','technology'];
+
+const List<String> languages = ['en','ar','de','es','fr','he','it','nl','no','pt','ru','sv','ud','zh'];

@@ -105,7 +105,7 @@ class _BreakingNewsState extends State<BreakingNews> {
                       )),
                 ),
               ),
-            )
+            ),
           ],
         ),),
     );
