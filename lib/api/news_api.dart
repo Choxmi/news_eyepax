@@ -6,7 +6,7 @@ import 'package:news_eyepax/model/full_result.dart';
 
 // News API related operations
 class NewsAPI {
-  final String _newsApiKey = 'ac6545cc39db46f4b4f93e59499297be';
+  final String _newsApiKey = '2f6cc7ac4e434142a5844256d0d65ffa';
   final String baseUrl = 'https://newsapi.org/v2/';
 
   // Get headlines/Breaking news
