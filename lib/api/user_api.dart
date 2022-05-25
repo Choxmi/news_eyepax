@@ -24,7 +24,6 @@ class UserAPI {
   // Register new user
   static Future<Response> registerUser({required String username, required String password, required String name}) async {
     var pwBytes = utf8.encode(password);
-    print(sha1.convert(pwBytes).toString());
     User user = User(name: name, username: username, password: sha1.convert(pwBytes).toString(), logged: false);
     DBOperations ops = DBOperations();
     Response out = await ops.addRecord(table: 'users', map: user.toMap());
@@ -39,10 +38,8 @@ class UserAPI {
       return res;
     }
     List<Map<String, dynamic>> records = res.data;
-    print(records);
     if(records.isNotEmpty) {
       var pwBytes = utf8.encode(password);
-      print(sha1.convert(pwBytes).toString());
       if(records[0]['password'] == sha1.convert(pwBytes).toString()) {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('user', records[0]['username']);
@@ -54,7 +51,6 @@ class UserAPI {
     } else {
       res = Response(status: RESPONSE_CODE.validationError, message: 'Check credentials', description: 'No record found');
     }
-    print(res);
     return res;
   }
 
